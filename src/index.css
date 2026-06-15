@@ -870,14 +870,66 @@ body {
   }
 }
 
-/* --- Study Card Flash Highlight --- */
+/* --- Study Card Flash Highlight (vocab panel → scroll here) --- */
 @keyframes cardFlash {
-  0% { background-color: var(--accent-light); box-shadow: 0 0 0 2px var(--accent-color); }
-  50% { background-color: var(--accent-light); box-shadow: 0 0 0 4px var(--accent-color); }
-  100% { background-color: var(--bg-primary); box-shadow: none; }
+  0%   { background-color: var(--accent-light); box-shadow: 0 0 0 2px var(--accent-color); }
+  50%  { background-color: var(--accent-light); box-shadow: 0 0 0 4px var(--accent-color); }
+  100% { background-color: var(--bg-primary);   box-shadow: none; }
 }
 
 .vocab-card.flash-card,
 .grammar-card.flash-card {
   animation: cardFlash 1.5s ease-out;
 }
+
+/* --- Clickable vocab/grammar cards (click → scroll reader to word) --- */
+.vocab-card-clickable,
+.grammar-card-clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.vocab-card-clickable:hover {
+  transform: translateX(-2px);
+  box-shadow: 2px 2px 12px rgba(0,0,0,0.12);
+  border-color: var(--accent-color);
+}
+
+.grammar-card-clickable:hover {
+  transform: translateX(-2px);
+  box-shadow: 2px 2px 12px rgba(0,0,0,0.12);
+  border-color: var(--accent-color);
+}
+
+/* Arrow icon shown on hover */
+.vocab-scroll-icon {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+.vocab-card-clickable:hover .vocab-scroll-icon,
+.grammar-card-clickable:hover .vocab-scroll-icon {
+  opacity: 1;
+}
+
+/* Vietnamese translation field in vocab card */
+.vocab-vi {
+  font-size: 0.82rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+/* --- Reader Word Flash (when scrolling to word from vocab panel) --- */
+@keyframes readerWordFlash {
+  0%   { background: var(--vocab-highlight-bg); outline: 2px solid var(--vocab-highlight); border-radius: 3px; }
+  40%  { background: var(--vocab-highlight);    outline: 2px solid var(--vocab-highlight); border-radius: 3px; color: #fff; }
+  100% { background: var(--vocab-highlight-bg); outline: none; border-radius: 3px; }
+}
+
+.highlighted-term.flash-reader-word {
+  animation: readerWordFlash 1.8s ease-out;
+}
+

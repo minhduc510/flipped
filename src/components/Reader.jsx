@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useState, useMemo, useEffect } from 'react';
 
 export default function Reader({
   paragraphs,
@@ -7,15 +7,37 @@ export default function Reader({
   lineHeight,
   vocabList = [],
   grammarList = [],
-  onSelectTerm
+  onSelectTerm,
+  scrollToTerm,  // { text, type, ts } – sent from VocabularyList click
 }) {
   const [activeIdx, setActiveIdx] = useState(null);
-  const [activeTab, setActiveTab] = useState('en'); // 'en' or 'vi' for tabbed layout
+  const [activeTab, setActiveTab] = useState('en');
   
   const leftColRef = useRef(null);
   const rightColRef = useRef(null);
   const isScrollingLeft = useRef(false);
   const isScrollingRight = useRef(false);
+
+  // --- EFFECT: vocab card clicked → scroll reader to that highlighted word ---
+  useEffect(() => {
+    if (!scrollToTerm || !scrollToTerm.text) return;
+    const word = scrollToTerm.text.toLowerCase();
+    // Find the first highlighted span whose data-term matches
+    const spans = document.querySelectorAll('.highlighted-term[data-term]');
+    let target = null;
+    for (const span of spans) {
+      if (span.dataset.term === word) {
+        target = span;
+        break;
+      }
+    }
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Flash animation on the span
+      target.classList.add('flash-reader-word');
+      setTimeout(() => target.classList.remove('flash-reader-word'), 1800);
+    }
+  }, [scrollToTerm]);
 
   // Sync scrolling between English and Vietnamese columns (retained for layout backward compatibility)
   const handleLeftScroll = () => {
@@ -121,6 +143,7 @@ export default function Reader({
               <span 
                 key={index} 
                 className={`highlighted-term ${className}`}
+                data-term={termObj.text.toLowerCase()}
                 title={termObj.type === 'vocab' ? `Từ vựng: ${termObj.obj.definition}` : `Cấu trúc: ${termObj.obj.meaning}`}
                 onClick={() => onSelectTerm && onSelectTerm({ text: termObj.text, type: termObj.type })}
               >

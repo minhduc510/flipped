@@ -34,11 +34,14 @@ export default function App() {
 
   const [isSavedOpen, setIsSavedOpen] = useState(false);
   const [selectedTerm, setSelectedTerm] = useState(null);
+  // scrollToTerm: when user clicks a vocab/grammar card, scroll the reader to that word
+  const [scrollToTerm, setScrollToTerm] = useState(null);
 
   // --- Sync State to LocalStorage ---
   useEffect(() => {
     localStorage.setItem("flipped_current_chapter", currentChapterNum);
-    setSelectedTerm(null); // Reset highlighted selection on chapter change
+    setSelectedTerm(null);
+    setScrollToTerm(null); // Reset on chapter change
   }, [currentChapterNum]);
 
   useEffect(() => {
@@ -92,8 +95,8 @@ export default function App() {
   const chapters = chaptersData.chapters;
   const currentChapter =
     chapters.find((c) => c.chapterNum === currentChapterNum) || chapters[0];
-  const currentVocab = chaptersData.vocabulary[currentChapterNum] || [];
-  const currentGrammar = chaptersData.grammar[currentChapterNum] || [];
+  const currentVocab = currentChapter.vocabulary || [];
+  const currentGrammar = currentChapter.grammar || [];
 
   // Calculate Progress Percent
   const progressPercent = Math.round(
@@ -149,6 +152,7 @@ export default function App() {
             vocabList={currentVocab}
             grammarList={currentGrammar}
             onSelectTerm={setSelectedTerm}
+            scrollToTerm={scrollToTerm}
           />
         </div>
       </main>
@@ -158,6 +162,7 @@ export default function App() {
         vocabList={currentVocab}
         grammarList={currentGrammar}
         selectedTerm={selectedTerm}
+        onScrollToTerm={setScrollToTerm}
       />
 
       {/* 4. Overlay Saved Vocabulary Drawer */}
