@@ -1,16 +1,54 @@
-# React + Vite
+# Flipped Song Ngữ - Đọc Truyện & Học Tiếng Anh
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website đọc truyện song ngữ Anh - Việt, được thiết kế thông minh giúp người học tiếng Anh dễ dàng trau dồi từ vựng và nâng cao kỹ năng đọc hiểu thông qua tiểu thuyết *Flipped*.
 
-Currently, two official plugins are available:
+## Tính Năng Nổi Bật
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Đọc Song Ngữ:** Hỗ trợ nhiều chế độ đọc (song song, chia tab) giúp bạn dễ dàng đối chiếu bản tiếng Anh và bản dịch tiếng Việt.
+- **Tùy Chỉnh Giao Diện:** 
+  - Đổi màu nền đa dạng với các chủ đề: Sáng (Light), Tối (Dark), Sepia, Rừng Rậm (Forest).
+  - Tùy chỉnh kích thước chữ (Font Size) và khoảng cách dòng (Line Height) để có trải nghiệm đọc tốt nhất.
+- **Học Từ Vựng (Sổ Tay Từ Vựng):** Khả năng chọn từ, lưu từ vựng và tra cứu nhanh chóng trong quá trình đọc.
+- **Chuyển Chương Linh Hoạt:** Giao diện điều khiển (Control Panel) tiện dụng giúp chọn chương dễ dàng.
 
-## React Compiler
+## Cài Đặt & Khởi Chạy Cục Bộ (Local Development)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Dự án được xây dựng với [React](https://react.dev/) và [Vite](https://vitejs.dev/).
 
-## Expanding the ESLint configuration
+### Yêu cầu hệ thống:
+- Node.js (phiên bản 18+ khuyến nghị)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Các bước cài đặt:
+
+1. **Clone dự án về máy:**
+   ```bash
+   git clone https://github.com/minhduc510/flipped.git
+   cd flipped
+   ```
+
+2. **Cài đặt các thư viện:**
+   ```bash
+   npm install
+   ```
+
+3. **Khởi chạy môi trường phát triển (Dev server):**
+   ```bash
+   npm run dev
+   ```
+   Sau đó mở trình duyệt tại địa chỉ: `http://localhost:5173`
+
+4. **Build dự án (Production):**
+   ```bash
+   npm run build
+   ```
+
+## Công Nghệ Sử Dụng
+
+- **Framework/Library:** React, Vite
+- **Icons:** `lucide-react`
+- **Ngôn ngữ:** JavaScript (ES6+), HTML, CSS
+
+## Tác Giả / Bản Quyền
+
+- Giao diện và code dự án được phát triển riêng cho việc học tiếng Anh.
+- Tác phẩm gốc *Flipped* thuộc bản quyền của tác giả Wendelin Van Draanen.
