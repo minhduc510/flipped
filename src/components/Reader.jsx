@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 export default function Reader({
   paragraphs,
@@ -13,11 +13,6 @@ export default function Reader({
   const [activeIdx, setActiveIdx] = useState(null);
   const [activeTab, setActiveTab] = useState('en');
   
-  const leftColRef = useRef(null);
-  const rightColRef = useRef(null);
-  const isScrollingLeft = useRef(false);
-  const isScrollingRight = useRef(false);
-
   // --- EFFECT: vocab card clicked → scroll reader to that highlighted word ---
   useEffect(() => {
     if (!scrollToTerm || !scrollToTerm.text) return;
@@ -38,33 +33,6 @@ export default function Reader({
       setTimeout(() => target.classList.remove('flash-reader-word'), 1800);
     }
   }, [scrollToTerm]);
-
-  // Sync scrolling between English and Vietnamese columns (retained for layout backward compatibility)
-  const handleLeftScroll = () => {
-    if (readingMode !== 'parallel' || isScrollingRight.current) return;
-    isScrollingLeft.current = true;
-    if (leftColRef.current && rightColRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = leftColRef.current;
-      const scrollPercent = scrollTop / (scrollHeight - clientHeight);
-      rightColRef.current.scrollTop = scrollPercent * (rightColRef.current.scrollHeight - rightColRef.current.clientHeight);
-    }
-    setTimeout(() => {
-      isScrollingLeft.current = false;
-    }, 50);
-  };
-
-  const handleRightScroll = () => {
-    if (readingMode !== 'parallel' || isScrollingLeft.current) return;
-    isScrollingRight.current = true;
-    if (leftColRef.current && rightColRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = rightColRef.current;
-      const scrollPercent = scrollTop / (scrollHeight - clientHeight);
-      leftColRef.current.scrollTop = scrollPercent * (leftColRef.current.scrollHeight - leftColRef.current.clientHeight);
-    }
-    setTimeout(() => {
-      isScrollingRight.current = false;
-    }, 50);
-  };
 
   // --- MEMOIZED SEARCH TERMS FOR HIGHLIGHTING ---
   const sortedTerms = useMemo(() => {
@@ -106,7 +74,7 @@ export default function Reader({
     
     // Escape special regex characters in the search terms
     const escapedTerms = sortedTerms.map(t => 
-      t.text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+      t.text.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
     );
     
     // Wrap alpha-only phrases with word boundaries (\b) to avoid mid-word highlights
@@ -154,7 +122,7 @@ export default function Reader({
         }
         return part;
       });
-    } catch (e) {
+    } catch {
       return text;
     }
   };

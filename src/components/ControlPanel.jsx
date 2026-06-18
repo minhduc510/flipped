@@ -23,14 +23,6 @@ export default function ControlPanel({
 }) {
   return (
     <aside className="sidebar">
-      <div className="sidebar-header">
-        <div className="logo-icon">F</div>
-        <div className="app-title">
-          <h1>Flipped Song Ngữ</h1>
-          <span>Đọc Truyện & Học Tiếng Anh</span>
-        </div>
-      </div>
-
       <div className="sidebar-scrollable">
         {/* Chapter Selection */}
         <div className="control-section">

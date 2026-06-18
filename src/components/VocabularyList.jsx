@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Award, ArrowRight } from 'lucide-react';
 
 export default function VocabularyList({ vocabList = [], grammarList = [], selectedTerm = null, onScrollToTerm }) {
@@ -7,10 +7,7 @@ export default function VocabularyList({ vocabList = [], grammarList = [], selec
   // --- EFFECT: when user clicks a word in the READER → scroll this panel to that card ---
   useEffect(() => {
     if (selectedTerm) {
-      // 1. Switch to the appropriate tab
-      setActiveTab(selectedTerm.type === 'grammar' ? 'grammar' : 'vocab');
-      
-      // 2. Compute the element ID
+      const nextTab = selectedTerm.type === 'grammar' ? 'grammar' : 'vocab';
       const cleanText = selectedTerm.text
         .replace(/\[.*?\]/g, "")
         .replace(/\+.*$/g, "")
@@ -20,8 +17,8 @@ export default function VocabularyList({ vocabList = [], grammarList = [], selec
         
       const elementId = `${selectedTerm.type === 'grammar' ? 'grammar' : 'vocab'}-${cleanText}`;
       
-      // 3. Delay slightly to ensure tab renders the cards, then scroll and flash
-      setTimeout(() => {
+      const timer = setTimeout(() => {
+        setActiveTab(nextTab);
         const element = document.getElementById(elementId);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -31,13 +28,15 @@ export default function VocabularyList({ vocabList = [], grammarList = [], selec
           }, 1500);
         }
       }, 80);
+      return () => clearTimeout(timer);
     }
+    return undefined;
   }, [selectedTerm]);
 
   // --- Handler: user clicks a vocab card → scroll the reader to that word ---
   const handleVocabClick = (item) => {
     if (onScrollToTerm) {
-      onScrollToTerm({ text: item.word, type: 'vocab', ts: Date.now() });
+      onScrollToTerm({ text: item.word, type: 'vocab' });
     }
   };
 
@@ -47,7 +46,7 @@ export default function VocabularyList({ vocabList = [], grammarList = [], selec
         .replace(/\[.*?\]/g, "")
         .replace(/\+.*$/g, "")
         .trim();
-      onScrollToTerm({ text: cleanPattern, type: 'grammar', ts: Date.now() });
+      onScrollToTerm({ text: cleanPattern, type: 'grammar' });
     }
   };
 

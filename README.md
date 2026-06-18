@@ -44,9 +44,21 @@ Dự án được xây dựng với [React](https://react.dev/) và [Vite](https
 
 ## Công Nghệ Sử Dụng
 
-- **Framework/Library:** React, Vite
+- **Framework/Library:** React, Vite, React Router
+- **Lưu trữ offline:** IndexedDB thông qua Dexie
+- **Biểu đồ học tập:** Recharts
 - **Icons:** `lucide-react`
 - **Ngôn ngữ:** JavaScript (ES6+), HTML, CSS
+
+## Bộ Chức Năng Học Tập
+
+- **SRS Flashcards:** ôn từ đến hạn với bốn mức ghi nhớ.
+- **Quiz theo chương:** câu hỏi trắc nghiệm lấy từ ngữ cảnh thật.
+- **Cloze Reading:** điền từ bị ẩn trong đoạn văn.
+- **Listening & Dictation:** nghe từng câu bằng Web Speech API và chép chính tả.
+- **Dashboard:** theo dõi chương đã đọc, điểm luyện tập và lịch ôn.
+
+Chi tiết quá trình triển khai được ghi trong thư mục [`docs`](./docs).
 
 ## Tác Giả / Bản Quyền
 

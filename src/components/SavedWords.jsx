@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, Trash2, BookOpen, Plus } from 'lucide-react';
 
 export default function SavedWords({ isOpen, onClose, savedWords, onDeleteWord, onAddWord }) {
