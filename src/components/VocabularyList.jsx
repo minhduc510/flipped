@@ -102,18 +102,31 @@ export default function VocabularyList({ vocabList = [], grammarList = [], selec
                       <ArrowRight size={13} className="vocab-scroll-icon" />
                     </div>
                     <div className="vocab-ipa">{item.ipa}</div>
-                    <div className="vocab-definition">{item.definition}</div>
+                    {item.definition && item.definition !== item.vi && (
+                      <div className="vocab-definition">{item.definition}</div>
+                    )}
                     {item.vi && (
                       <div className="vocab-vi">🇻🇳 {item.vi}</div>
                     )}
                     {item.context && (
                       <div className="vocab-context">
-                        <strong>Ngữ cảnh:</strong> "{item.context}"
+                        <strong>Trong chương:</strong> "{item.context}"
+                      </div>
+                    )}
+                    {item.contextVi && (
+                      <div className="vocab-context">
+                        <strong>Nghĩa câu:</strong> "{item.contextVi}"
+                      </div>
+                    )}
+                    {item.example && item.example !== item.context && (
+                      <div className="vocab-context">
+                        <strong>Ví dụ khác:</strong> "{item.example}"
+                        {item.exampleVi && <> — {item.exampleVi}</>}
                       </div>
                     )}
                     {item.explanation && (
                       <div className="vocab-explanation">
-                        <strong>Mẹo:</strong> {item.explanation}
+                        <strong>Giải thích:</strong> {item.explanation}
                       </div>
                     )}
                   </div>
@@ -150,7 +163,12 @@ export default function VocabularyList({ vocabList = [], grammarList = [], selec
                     <div className="grammar-meaning">{item.meaning}</div>
                     {item.context && (
                       <div className="grammar-context">
-                        <strong>Ví dụ:</strong> "{item.context}"
+                        <strong>Ví dụ trong chương:</strong> "{item.context}"
+                      </div>
+                    )}
+                    {item.contextVi && (
+                      <div className="grammar-context">
+                        <strong>Nghĩa câu:</strong> "{item.contextVi}"
                       </div>
                     )}
                     {item.explanation && (
