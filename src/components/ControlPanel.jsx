@@ -1,5 +1,11 @@
-import React from 'react';
-import { BookOpen, Columns, Layers, Palette, Type, Bookmark, Settings } from 'lucide-react';
+import {
+  Bookmark,
+  BookOpen,
+  Columns,
+  Layers,
+  Palette,
+  Type,
+} from "lucide-react";
 
 export default function ControlPanel({
   chapters,
@@ -13,15 +19,15 @@ export default function ControlPanel({
   setFontSize,
   lineHeight,
   setLineHeight,
-  onOpenSavedWords
+  onOpenSavedWords,
 }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
         <div className="logo-icon">F</div>
         <div className="app-title">
-          <h1>Flipped Bilingual</h1>
-          <span>TOEIC Study Companion</span>
+          <h1>Flipped Song Ngữ</h1>
+          <span>Đọc Truyện & Học Tiếng Anh</span>
         </div>
       </div>
 
@@ -29,7 +35,10 @@ export default function ControlPanel({
         {/* Chapter Selection */}
         <div className="control-section">
           <label className="control-label">
-            <BookOpen size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} />
+            <BookOpen
+              size={14}
+              style={{ marginRight: "4px", verticalAlign: "middle" }}
+            />
             Chọn Chương Học
           </label>
           <select
@@ -48,21 +57,24 @@ export default function ControlPanel({
         {/* Reading Mode Selection */}
         <div className="control-section">
           <label className="control-label">
-            <Columns size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} />
+            <Columns
+              size={14}
+              style={{ marginRight: "4px", verticalAlign: "middle" }}
+            />
             Chế độ Đọc
           </label>
           <div className="mode-toggle-group">
             <button
-              className={`mode-btn ${readingMode === 'parallel' ? 'active' : ''}`}
-              onClick={() => setReadingMode('parallel')}
+              className={`mode-btn ${readingMode === "parallel" ? "active" : ""}`}
+              onClick={() => setReadingMode("parallel")}
               title="Xem song song hai bản dịch"
             >
               <Columns size={14} />
               Song Song
             </button>
             <button
-              className={`mode-btn ${readingMode === 'tabbed' ? 'active' : ''}`}
-              onClick={() => setReadingMode('tabbed')}
+              className={`mode-btn ${readingMode === "tabbed" ? "active" : ""}`}
+              onClick={() => setReadingMode("tabbed")}
               title="Xem riêng biệt từng tab"
             >
               <Layers size={14} />
@@ -74,31 +86,34 @@ export default function ControlPanel({
         {/* Customizable Color Themes */}
         <div className="control-section">
           <label className="control-label">
-            <Palette size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} />
+            <Palette
+              size={14}
+              style={{ marginRight: "4px", verticalAlign: "middle" }}
+            />
             Giao Diện Màu
           </label>
           <div className="theme-grid">
             <button
-              className={`theme-btn theme-btn-light ${theme === 'light' ? 'active' : ''}`}
-              onClick={() => setTheme('light')}
+              className={`theme-btn theme-btn-light ${theme === "light" ? "active" : ""}`}
+              onClick={() => setTheme("light")}
             >
               Sáng
             </button>
             <button
-              className={`theme-btn theme-btn-dark ${theme === 'dark' ? 'active' : ''}`}
-              onClick={() => setTheme('dark')}
+              className={`theme-btn theme-btn-dark ${theme === "dark" ? "active" : ""}`}
+              onClick={() => setTheme("dark")}
             >
               Tối
             </button>
             <button
-              className={`theme-btn theme-btn-sepia ${theme === 'sepia' ? 'active' : ''}`}
-              onClick={() => setTheme('sepia')}
+              className={`theme-btn theme-btn-sepia ${theme === "sepia" ? "active" : ""}`}
+              onClick={() => setTheme("sepia")}
             >
               Sepia
             </button>
             <button
-              className={`theme-btn theme-btn-forest ${theme === 'forest' ? 'active' : ''}`}
-              onClick={() => setTheme('forest')}
+              className={`theme-btn theme-btn-forest ${theme === "forest" ? "active" : ""}`}
+              onClick={() => setTheme("forest")}
             >
               Rừng Rậm
             </button>
@@ -108,7 +123,10 @@ export default function ControlPanel({
         {/* Typography Customization */}
         <div className="control-section">
           <label className="control-label">
-            <Type size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} />
+            <Type
+              size={14}
+              style={{ marginRight: "4px", verticalAlign: "middle" }}
+            />
             Cỡ chữ ({fontSize}px)
           </label>
           <div className="range-control">
@@ -125,7 +143,10 @@ export default function ControlPanel({
 
         <div className="control-section">
           <label className="control-label">
-            <Type size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} />
+            <Type
+              size={14}
+              style={{ marginRight: "4px", verticalAlign: "middle" }}
+            />
             Khoảng cách dòng ({lineHeight})
           </label>
           <div className="range-control">
