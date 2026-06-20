@@ -55,6 +55,13 @@ export default function ClozePage() {
           name="description"
           content={`Luyện tập điền từ vào chỗ trống (cloze test) trích từ Chương ${chapterNum} sách Flipped để ghi nhớ cấu trúc từ vựng trong ngữ cảnh thực tế.`}
         />
+        <meta property="og:title" content={`Luyện Đọc Cloze Chương ${chapterNum} | Flipped Song Ngữ`} />
+        <meta
+          property="og:description"
+          content={`Luyện tập điền từ vào chỗ trống (cloze test) trích từ Chương ${chapterNum} sách Flipped để ghi nhớ cấu trúc từ vựng trong ngữ cảnh thực tế.`}
+        />
+        <meta property="og:image" content={`${import.meta.env.VITE_SITE_URL}/cover.jpg`} />
+        <meta property="og:url" content={`${import.meta.env.VITE_SITE_URL}/cloze`} />
       </Helmet>
       <PageHeader
         eyebrow="Context practice"

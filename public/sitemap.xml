@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Trang chủ / Trang đọc truyện (Độ ưu tiên cao nhất) -->
+  <url>
+    <loc>https://flippedsongngu.xyz/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://flippedsongngu.xyz/read</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Trang ôn tập từ vựng SRS -->
+  <url>
+    <loc>https://flippedsongngu.xyz/review</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Trang trắc nghiệm Quiz -->
+  <url>
+    <loc>https://flippedsongngu.xyz/quiz</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Trang luyện đọc Cloze -->
+  <url>
+    <loc>https://flippedsongngu.xyz/cloze</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Trang luyện nghe chép chính tả -->
+  <url>
+    <loc>https://flippedsongngu.xyz/listen</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Trang Dashboard thống kê tiến trình -->
+  <url>
+    <loc>https://flippedsongngu.xyz/dashboard</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>

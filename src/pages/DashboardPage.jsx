@@ -87,6 +87,13 @@ export default function DashboardPage() {
           name="description"
           content="Theo dõi tiến trình đọc sách Flipped song ngữ, số lượng từ vựng đã nắm vững, kết quả luyện tập trắc nghiệm và chép chính tả."
         />
+        <meta property="og:title" content="Dashboard Tiến Độ Học Tập | Flipped Song Ngữ" />
+        <meta
+          property="og:description"
+          content="Theo dõi tiến trình đọc sách Flipped song ngữ, số lượng từ vựng đã nắm vững, kết quả luyện tập trắc nghiệm và chép chính tả."
+        />
+        <meta property="og:image" content={`${import.meta.env.VITE_SITE_URL}/cover.jpg`} />
+        <meta property="og:url" content={`${import.meta.env.VITE_SITE_URL}/dashboard`} />
       </Helmet>
       <PageHeader
         eyebrow="Learning analytics"

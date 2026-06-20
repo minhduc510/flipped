@@ -68,6 +68,13 @@ export default function ListeningPage() {
           name="description"
           content={`Luyện nghe và chép chính tả (dictation) theo từng câu trích từ Chương ${chapterNum} sách Flipped hỗ trợ phát triển kỹ năng nhận âm.`}
         />
+        <meta property="og:title" content={`Luyện Nghe Chương ${chapterNum} | Flipped Song Ngữ`} />
+        <meta
+          property="og:description"
+          content={`Luyện nghe và chép chính tả (dictation) theo từng câu trích từ Chương ${chapterNum} sách Flipped hỗ trợ phát triển kỹ năng nhận âm.`}
+        />
+        <meta property="og:image" content={`${import.meta.env.VITE_SITE_URL}/cover.jpg`} />
+        <meta property="og:url" content={`${import.meta.env.VITE_SITE_URL}/listen`} />
       </Helmet>
       <PageHeader
         eyebrow="Listening & dictation"

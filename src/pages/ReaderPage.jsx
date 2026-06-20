@@ -84,6 +84,13 @@ export default function ReaderPage() {
           name="description"
           content={`Đọc truyện Flipped song ngữ Anh - Việt. Chương ${currentChapterNum}: ${currentChapter.title}. Học từ vựng, ngữ pháp thực tế cho TOEIC 550.`}
         />
+        <meta property="og:title" content={`Chương ${currentChapterNum}: ${currentChapter.title} | Flipped Song Ngữ`} />
+        <meta
+          property="og:description"
+          content={`Đọc truyện Flipped song ngữ Anh - Việt. Chương ${currentChapterNum}: ${currentChapter.title}. Học từ vựng, ngữ pháp thực tế cho TOEIC 550.`}
+        />
+        <meta property="og:image" content={`${import.meta.env.VITE_SITE_URL}/cover.jpg`} />
+        <meta property="og:url" content={`${import.meta.env.VITE_SITE_URL}/read`} />
       </Helmet>
       <ControlPanel
         chapters={chapters}

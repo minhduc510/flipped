@@ -74,6 +74,13 @@ export default function ReviewPage() {
           name="description"
           content="Hệ thống học từ vựng bằng phương pháp lặp lại ngắt quãng (SRS). Ôn tập từ vựng, ngữ pháp theo chương truyện Flipped tối ưu cho TOEIC."
         />
+        <meta property="og:title" content="Ôn Tập Từ Vựng SRS | Flipped Song Ngữ" />
+        <meta
+          property="og:description"
+          content="Hệ thống học từ vựng bằng phương pháp lặp lại ngắt quãng (SRS). Ôn tập từ vựng, ngữ pháp theo chương truyện Flipped tối ưu cho TOEIC."
+        />
+        <meta property="og:image" content={`${import.meta.env.VITE_SITE_URL}/cover.jpg`} />
+        <meta property="og:url" content={`${import.meta.env.VITE_SITE_URL}/review`} />
       </Helmet>
       <PageHeader
         eyebrow="Spaced repetition"

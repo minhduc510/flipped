@@ -52,6 +52,13 @@ export default function QuizPage() {
           name="description"
           content={`Làm bài trắc nghiệm (quiz) ôn tập từ vựng, cấu trúc ngữ pháp trực tiếp từ bối cảnh Chương ${chapterNum} của tiểu thuyết Flipped.`}
         />
+        <meta property="og:title" content={`Trắc Nghiệm Chương ${chapterNum} | Flipped Song Ngữ`} />
+        <meta
+          property="og:description"
+          content={`Làm bài trắc nghiệm (quiz) ôn tập từ vựng, cấu trúc ngữ pháp trực tiếp từ bối cảnh Chương ${chapterNum} của tiểu thuyết Flipped.`}
+        />
+        <meta property="og:image" content={`${import.meta.env.VITE_SITE_URL}/cover.jpg`} />
+        <meta property="og:url" content={`${import.meta.env.VITE_SITE_URL}/quiz`} />
       </Helmet>
       <PageHeader
         eyebrow="Active recall"
