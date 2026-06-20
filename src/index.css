@@ -329,7 +329,7 @@ body {
   z-index: 10;
 }
 
-.chapter-title h2 {
+.chapter-title h1 {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);

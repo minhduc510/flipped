@@ -107,7 +107,7 @@ export default function ReaderPage() {
       <main className="main-content">
         <header className="top-bar">
           <div className="chapter-title">
-            <h2>{currentChapter.title}</h2>
+            <h1>{currentChapter.title}</h1>
           </div>
           <div className="reading-progress-container">
             <button
