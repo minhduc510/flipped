@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
 import { Check, Headphones, Pause, Play, Volume2 } from "lucide-react";
-import chaptersData from "../data/chapters.json";
+import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import ChapterPicker from "../components/ChapterPicker";
 import PageHeader from "../components/PageHeader";
+import chaptersData from "../data/chapters.json";
 import { db } from "../data/learningDb";
 import { normalizeAnswer, splitIntoSentences } from "../utils/learning";
 
@@ -16,7 +17,8 @@ export default function ListeningPage() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [dictation, setDictation] = useState("");
   const [checked, setChecked] = useState(false);
-  const chapter = chapters.find((item) => item.chapterNum === chapterNum) || chapters[0];
+  const chapter =
+    chapters.find((item) => item.chapterNum === chapterNum) || chapters[0];
   const paragraph = chapter.paragraphs[paragraphIndex] || chapter.paragraphs[0];
   const sentences = splitIntoSentences(paragraph.en);
   const dictationCorrect =
@@ -60,6 +62,13 @@ export default function ListeningPage() {
 
   return (
     <section className="feature-page">
+      <Helmet>
+        <title>{`Luyện Nghe Chương ${chapterNum} | Flipped Song Ngữ`}</title>
+        <meta
+          name="description"
+          content={`Luyện nghe và chép chính tả (dictation) theo từng câu trích từ Chương ${chapterNum} sách Flipped hỗ trợ phát triển kỹ năng nhận âm.`}
+        />
+      </Helmet>
       <PageHeader
         eyebrow="Listening & dictation"
         title="Nghe từng câu"
@@ -91,7 +100,8 @@ export default function ListeningPage() {
 
       {!("speechSynthesis" in window) && (
         <div className="notice warning-notice">
-          Trình duyệt này không hỗ trợ Web Speech API. Phần chép chính tả vẫn sử dụng được.
+          Trình duyệt này không hỗ trợ Web Speech API. Phần chép chính tả vẫn sử
+          dụng được.
         </div>
       )}
 
@@ -157,8 +167,12 @@ export default function ListeningPage() {
               So sánh
             </button>
             {checked && (
-              <div className={`dictation-result ${dictationCorrect ? "correct" : "incorrect"}`}>
-                <strong>{dictationCorrect ? "Chính xác!" : "Chưa khớp hoàn toàn."}</strong>
+              <div
+                className={`dictation-result ${dictationCorrect ? "correct" : "incorrect"}`}
+              >
+                <strong>
+                  {dictationCorrect ? "Chính xác!" : "Chưa khớp hoàn toàn."}
+                </strong>
                 {!dictationCorrect && <p>Đáp án: {paragraph.en}</p>}
               </div>
             )}

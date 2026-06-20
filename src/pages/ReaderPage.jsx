@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import chaptersData from "../data/chapters.json";
+import { Helmet } from "react-helmet-async";
 import ControlPanel from "../components/ControlPanel";
 import Reader from "../components/Reader";
-import VocabularyList from "../components/VocabularyList";
 import SavedWords from "../components/SavedWords";
+import VocabularyList from "../components/VocabularyList";
+import chaptersData from "../data/chapters.json";
 import { markChapterCompleted, markChapterOpened } from "../data/learningDb";
 
 export default function ReaderPage() {
@@ -35,23 +36,41 @@ export default function ReaderPage() {
     localStorage.setItem("flipped_current_chapter", currentChapterNum);
     markChapterOpened(currentChapterNum);
   }, [currentChapterNum]);
-  useEffect(() => localStorage.setItem("flipped_reading_mode", readingMode), [readingMode]);
+  useEffect(
+    () => localStorage.setItem("flipped_reading_mode", readingMode),
+    [readingMode],
+  );
   useEffect(() => {
     localStorage.setItem("flipped_theme", theme);
-    window.dispatchEvent(new CustomEvent("flipped-theme-change", { detail: theme }));
+    window.dispatchEvent(
+      new CustomEvent("flipped-theme-change", { detail: theme }),
+    );
   }, [theme]);
-  useEffect(() => localStorage.setItem("flipped_font_size", fontSize), [fontSize]);
-  useEffect(() => localStorage.setItem("flipped_line_height", lineHeight), [lineHeight]);
+  useEffect(
+    () => localStorage.setItem("flipped_font_size", fontSize),
+    [fontSize],
+  );
+  useEffect(
+    () => localStorage.setItem("flipped_line_height", lineHeight),
+    [lineHeight],
+  );
   useEffect(() => {
     localStorage.setItem("flipped_saved_words", JSON.stringify(savedWords));
   }, [savedWords]);
 
   const currentChapter =
-    chapters.find((chapter) => chapter.chapterNum === currentChapterNum) || chapters[0];
-  const progressPercent = Math.round((currentChapterNum / chapters.length) * 100);
+    chapters.find((chapter) => chapter.chapterNum === currentChapterNum) ||
+    chapters[0];
+  const progressPercent = Math.round(
+    (currentChapterNum / chapters.length) * 100,
+  );
 
   function handleSaveWord(wordObj) {
-    if (savedWords.some((item) => item.word.toLowerCase() === wordObj.word.toLowerCase())) {
+    if (
+      savedWords.some(
+        (item) => item.word.toLowerCase() === wordObj.word.toLowerCase(),
+      )
+    ) {
       return;
     }
     setSavedWords((current) => [...current, wordObj]);
@@ -59,6 +78,13 @@ export default function ReaderPage() {
 
   return (
     <div className={`reader-page app-container theme-${theme}`}>
+      <Helmet>
+        <title>{`Chương ${currentChapterNum}: ${currentChapter.title} | Flipped Song Ngữ`}</title>
+        <meta
+          name="description"
+          content={`Đọc truyện Flipped song ngữ Anh - Việt. Chương ${currentChapterNum}: ${currentChapter.title}. Học từ vựng, ngữ pháp thực tế cho TOEIC 550.`}
+        />
+      </Helmet>
       <ControlPanel
         chapters={chapters}
         currentChapterNum={currentChapterNum}
@@ -92,7 +118,10 @@ export default function ReaderPage() {
             </button>
             <span>Tiến trình: {progressPercent}%</span>
             <div className="progress-track">
-              <div className="progress-bar" style={{ width: `${progressPercent}%` }} />
+              <div
+                className="progress-bar"
+                style={{ width: `${progressPercent}%` }}
+              />
             </div>
           </div>
         </header>
@@ -123,7 +152,9 @@ export default function ReaderPage() {
         savedWords={savedWords}
         onDeleteWord={(word) =>
           setSavedWords((current) =>
-            current.filter((item) => item.word.toLowerCase() !== word.toLowerCase()),
+            current.filter(
+              (item) => item.word.toLowerCase() !== word.toLowerCase(),
+            ),
           )
         }
         onAddWord={handleSaveWord}

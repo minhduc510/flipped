@@ -1,42 +1,45 @@
 import { useLiveQuery } from "dexie-react-hooks";
-import { useState } from "react";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { Award, BookOpenCheck, Brain, CalendarDays } from "lucide-react";
-import chaptersData from "../data/chapters.json";
+import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 import PageHeader from "../components/PageHeader";
+import chaptersData from "../data/chapters.json";
 import { db } from "../data/learningDb";
 import { formatStudyDate } from "../utils/learning";
 
 export default function DashboardPage() {
   const [now] = useState(() => Date.now());
-  const snapshot = useLiveQuery(async () => {
-    const [cards, reviews, quizzes, clozes, listening, progress] = await Promise.all([
-      db.flashcards.toArray(),
-      db.reviewHistory.toArray(),
-      db.quizAttempts.toArray(),
-      db.clozeAttempts.toArray(),
-      db.listeningProgress.toArray(),
-      db.chapterProgress.toArray(),
-    ]);
-    return { cards, reviews, quizzes, clozes, listening, progress };
-  }, [], {
-    cards: [],
-    reviews: [],
-    quizzes: [],
-    clozes: [],
-    listening: [],
-    progress: [],
-  });
+  const snapshot = useLiveQuery(
+    async () => {
+      const [cards, reviews, quizzes, clozes, listening, progress] =
+        await Promise.all([
+          db.flashcards.toArray(),
+          db.reviewHistory.toArray(),
+          db.quizAttempts.toArray(),
+          db.clozeAttempts.toArray(),
+          db.listeningProgress.toArray(),
+          db.chapterProgress.toArray(),
+        ]);
+      return { cards, reviews, quizzes, clozes, listening, progress };
+    },
+    [],
+    {
+      cards: [],
+      reviews: [],
+      quizzes: [],
+      clozes: [],
+      listening: [],
+      progress: [],
+    },
+  );
 
-  const completedChapters = snapshot.progress.filter((item) => item.completedAt).length;
-  const masteredCards = snapshot.cards.filter((item) => item.status === "mastered").length;
+  const completedChapters = snapshot.progress.filter(
+    (item) => item.completedAt,
+  ).length;
+  const masteredCards = snapshot.cards.filter(
+    (item) => item.status === "mastered",
+  ).length;
   const dueCards = snapshot.cards.filter((item) => item.dueAt <= now).length;
   const averageQuiz = snapshot.quizzes.length
     ? Math.round(
@@ -53,21 +56,38 @@ export default function DashboardPage() {
   );
 
   const chartData = chaptersData.chapters.map((chapter) => {
-    const quizzes = snapshot.quizzes.filter((item) => item.chapterNum === chapter.chapterNum);
-    const clozes = snapshot.clozes.filter((item) => item.chapterNum === chapter.chapterNum);
+    const quizzes = snapshot.quizzes.filter(
+      (item) => item.chapterNum === chapter.chapterNum,
+    );
+    const clozes = snapshot.clozes.filter(
+      (item) => item.chapterNum === chapter.chapterNum,
+    );
     return {
       chapter: `C${chapter.chapterNum}`,
       quiz: quizzes.length
-        ? Math.round(quizzes.reduce((sum, item) => sum + item.percentage, 0) / quizzes.length)
+        ? Math.round(
+            quizzes.reduce((sum, item) => sum + item.percentage, 0) /
+              quizzes.length,
+          )
         : 0,
       cloze: clozes.length
-        ? Math.round(clozes.reduce((sum, item) => sum + item.percentage, 0) / clozes.length)
+        ? Math.round(
+            clozes.reduce((sum, item) => sum + item.percentage, 0) /
+              clozes.length,
+          )
         : 0,
     };
   });
 
   return (
     <section className="feature-page">
+      <Helmet>
+        <title>Dashboard Tiến Độ Học Tập | Flipped Song Ngữ</title>
+        <meta
+          name="description"
+          content="Theo dõi tiến trình đọc sách Flipped song ngữ, số lượng từ vựng đã nắm vững, kết quả luyện tập trắc nghiệm và chép chính tả."
+        />
+      </Helmet>
       <PageHeader
         eyebrow="Learning analytics"
         title="Dashboard tiến độ"
@@ -77,19 +97,31 @@ export default function DashboardPage() {
       <div className="dashboard-grid">
         <article className="metric-card">
           <BookOpenCheck />
-          <div><strong>{completedChapters}/14</strong><span>Chương đã đọc</span></div>
+          <div>
+            <strong>{completedChapters}/14</strong>
+            <span>Chương đã đọc</span>
+          </div>
         </article>
         <article className="metric-card">
           <Brain />
-          <div><strong>{masteredCards}</strong><span>Từ đã vững</span></div>
+          <div>
+            <strong>{masteredCards}</strong>
+            <span>Từ đã vững</span>
+          </div>
         </article>
         <article className="metric-card">
           <Award />
-          <div><strong>{averageQuiz}%</strong><span>Điểm quiz trung bình</span></div>
+          <div>
+            <strong>{averageQuiz}%</strong>
+            <span>Điểm quiz trung bình</span>
+          </div>
         </article>
         <article className="metric-card">
           <CalendarDays />
-          <div><strong>{dueCards}</strong><span>Thẻ cần ôn hôm nay</span></div>
+          <div>
+            <strong>{dueCards}</strong>
+            <span>Thẻ cần ôn hôm nay</span>
+          </div>
         </article>
       </div>
 
@@ -107,8 +139,18 @@ export default function DashboardPage() {
               <XAxis dataKey="chapter" />
               <YAxis domain={[0, 100]} />
               <Tooltip />
-              <Bar dataKey="quiz" name="Quiz" fill="#3b82f6" radius={[5, 5, 0, 0]} />
-              <Bar dataKey="cloze" name="Cloze" fill="#f59e0b" radius={[5, 5, 0, 0]} />
+              <Bar
+                dataKey="quiz"
+                name="Quiz"
+                fill="#3b82f6"
+                radius={[5, 5, 0, 0]}
+              />
+              <Bar
+                dataKey="cloze"
+                name="Cloze"
+                fill="#f59e0b"
+                radius={[5, 5, 0, 0]}
+              />
             </BarChart>
           </div>
         </article>
@@ -116,14 +158,28 @@ export default function DashboardPage() {
         <article className="activity-card">
           <h2>Tổng quan hoạt động</h2>
           <dl>
-            <div><dt>Lượt ôn SRS</dt><dd>{snapshot.reviews.length}</dd></div>
-            <div><dt>Bài quiz đã làm</dt><dd>{snapshot.quizzes.length}</dd></div>
-            <div><dt>Bài cloze đã làm</dt><dd>{snapshot.clozes.length}</dd></div>
+            <div>
+              <dt>Lượt ôn SRS</dt>
+              <dd>{snapshot.reviews.length}</dd>
+            </div>
+            <div>
+              <dt>Bài quiz đã làm</dt>
+              <dd>{snapshot.quizzes.length}</dd>
+            </div>
+            <div>
+              <dt>Bài cloze đã làm</dt>
+              <dd>{snapshot.clozes.length}</dd>
+            </div>
             <div>
               <dt>Đoạn đã nghe</dt>
-              <dd>{snapshot.listening.filter((item) => item.completed).length}</dd>
+              <dd>
+                {snapshot.listening.filter((item) => item.completed).length}
+              </dd>
             </div>
-            <div><dt>Hoạt động gần nhất</dt><dd>{formatStudyDate(latestActivity)}</dd></div>
+            <div>
+              <dt>Hoạt động gần nhất</dt>
+              <dd>{formatStudyDate(latestActivity)}</dd>
+            </div>
           </dl>
         </article>
       </div>

@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
 import { Eye, Lightbulb, RefreshCw } from "lucide-react";
-import chaptersData from "../data/chapters.json";
+import { useMemo, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import ChapterPicker from "../components/ChapterPicker";
 import PageHeader from "../components/PageHeader";
+import chaptersData from "../data/chapters.json";
 import { db } from "../data/learningDb";
 import { createClozeExercise, normalizeAnswer } from "../utils/learning";
 
@@ -15,16 +16,16 @@ export default function ClozePage() {
   const [answers, setAnswers] = useState({});
   const [hints, setHints] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const chapter = chapters.find((item) => item.chapterNum === chapterNum) || chapters[0];
-  const exercises = useMemo(
-    () => {
-      void sessionKey;
-      return createClozeExercise(chapter, 8);
-    },
-    [chapter, sessionKey],
-  );
+  const chapter =
+    chapters.find((item) => item.chapterNum === chapterNum) || chapters[0];
+  const exercises = useMemo(() => {
+    void sessionKey;
+    return createClozeExercise(chapter, 8);
+  }, [chapter, sessionKey]);
   const score = exercises.filter(
-    (exercise) => normalizeAnswer(answers[exercise.id]) === normalizeAnswer(exercise.answer),
+    (exercise) =>
+      normalizeAnswer(answers[exercise.id]) ===
+      normalizeAnswer(exercise.answer),
   ).length;
 
   function reset(nextChapter = chapterNum) {
@@ -48,6 +49,13 @@ export default function ClozePage() {
 
   return (
     <section className="feature-page">
+      <Helmet>
+        <title>{`Luyện Đọc Cloze Chương ${chapterNum} | Flipped Song Ngữ`}</title>
+        <meta
+          name="description"
+          content={`Luyện tập điền từ vào chỗ trống (cloze test) trích từ Chương ${chapterNum} sách Flipped để ghi nhớ cấu trúc từ vựng trong ngữ cảnh thực tế.`}
+        />
+      </Helmet>
       <PageHeader
         eyebrow="Context practice"
         title="Cloze Reading"
@@ -68,8 +76,13 @@ export default function ClozePage() {
 
       {submitted && (
         <div className="score-banner">
-          <strong>{score}/{exercises.length}</strong>
-          <span>Đáp án đúng được tô xanh; hãy đọc lại cả câu thay vì chỉ nhớ riêng từ.</span>
+          <strong>
+            {score}/{exercises.length}
+          </strong>
+          <span>
+            Đáp án đúng được tô xanh; hãy đọc lại cả câu thay vì chỉ nhớ riêng
+            từ.
+          </span>
         </div>
       )}
 
@@ -77,7 +90,8 @@ export default function ClozePage() {
         {exercises.map((exercise, index) => {
           const isCorrect =
             submitted &&
-            normalizeAnswer(answers[exercise.id]) === normalizeAnswer(exercise.answer);
+            normalizeAnswer(answers[exercise.id]) ===
+              normalizeAnswer(exercise.answer);
           return (
             <article className="cloze-card" key={exercise.id}>
               <span className="question-number">Đoạn {index + 1}</span>
@@ -86,7 +100,13 @@ export default function ClozePage() {
                 <input
                   value={answers[exercise.id] || ""}
                   disabled={submitted}
-                  className={submitted ? (isCorrect ? "input-correct" : "input-incorrect") : ""}
+                  className={
+                    submitted
+                      ? isCorrect
+                        ? "input-correct"
+                        : "input-incorrect"
+                      : ""
+                  }
                   placeholder="Nhập từ còn thiếu"
                   onChange={(event) =>
                     setAnswers((current) => ({
@@ -98,13 +118,18 @@ export default function ClozePage() {
                 <button
                   className="icon-text-button"
                   onClick={() =>
-                    setHints((current) => ({ ...current, [exercise.id]: !current[exercise.id] }))
+                    setHints((current) => ({
+                      ...current,
+                      [exercise.id]: !current[exercise.id],
+                    }))
                   }
                 >
                   <Lightbulb size={16} /> Gợi ý
                 </button>
               </div>
-              {hints[exercise.id] && <p className="hint-text">Nghĩa: {exercise.hint}</p>}
+              {hints[exercise.id] && (
+                <p className="hint-text">Nghĩa: {exercise.hint}</p>
+              )}
               {submitted && !isCorrect && (
                 <p className="answer-explanation">
                   Đáp án: <strong>{exercise.answer}</strong>
@@ -112,7 +137,9 @@ export default function ClozePage() {
               )}
               {submitted && (
                 <details>
-                  <summary><Eye size={15} /> Xem bản dịch</summary>
+                  <summary>
+                    <Eye size={15} /> Xem bản dịch
+                  </summary>
                   <p>{exercise.translation}</p>
                 </details>
               )}
@@ -122,10 +149,16 @@ export default function ClozePage() {
       </div>
 
       <div className="sticky-submit">
-        <span>Đã điền {Object.values(answers).filter(Boolean).length}/{exercises.length}</span>
+        <span>
+          Đã điền {Object.values(answers).filter(Boolean).length}/
+          {exercises.length}
+        </span>
         <button
           className="primary-button"
-          disabled={submitted || Object.values(answers).filter(Boolean).length !== exercises.length}
+          disabled={
+            submitted ||
+            Object.values(answers).filter(Boolean).length !== exercises.length
+          }
           onClick={submit}
         >
           Kiểm tra đáp án

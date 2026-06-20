@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
 import { CheckCircle2, RefreshCw, XCircle } from "lucide-react";
-import chaptersData from "../data/chapters.json";
+import { useMemo, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import ChapterPicker from "../components/ChapterPicker";
 import PageHeader from "../components/PageHeader";
+import chaptersData from "../data/chapters.json";
 import { db } from "../data/learningDb";
 import { createQuiz } from "../utils/learning";
 
@@ -14,15 +15,15 @@ export default function QuizPage() {
   const [sessionKey, setSessionKey] = useState(0);
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const chapter = chapters.find((item) => item.chapterNum === chapterNum) || chapters[0];
-  const questions = useMemo(
-    () => {
-      void sessionKey;
-      return createQuiz(chapter, 10);
-    },
-    [chapter, sessionKey],
-  );
-  const score = questions.filter((question) => answers[question.id] === question.answer).length;
+  const chapter =
+    chapters.find((item) => item.chapterNum === chapterNum) || chapters[0];
+  const questions = useMemo(() => {
+    void sessionKey;
+    return createQuiz(chapter, 10);
+  }, [chapter, sessionKey]);
+  const score = questions.filter(
+    (question) => answers[question.id] === question.answer,
+  ).length;
 
   function resetQuiz(nextChapter = chapterNum) {
     setChapterNum(nextChapter);
@@ -45,6 +46,13 @@ export default function QuizPage() {
 
   return (
     <section className="feature-page">
+      <Helmet>
+        <title>{`Trắc Nghiệm Chương ${chapterNum} | Flipped Song Ngữ`}</title>
+        <meta
+          name="description"
+          content={`Làm bài trắc nghiệm (quiz) ôn tập từ vựng, cấu trúc ngữ pháp trực tiếp từ bối cảnh Chương ${chapterNum} của tiểu thuyết Flipped.`}
+        />
+      </Helmet>
       <PageHeader
         eyebrow="Active recall"
         title="Quiz theo chương"
@@ -65,7 +73,9 @@ export default function QuizPage() {
 
       {submitted && (
         <div className="score-banner">
-          <strong>{score}/{questions.length}</strong>
+          <strong>
+            {score}/{questions.length}
+          </strong>
           <span>
             {score >= 8
               ? "Rất tốt — bạn đã nắm khá chắc chương này."
@@ -83,14 +93,18 @@ export default function QuizPage() {
               {question.options.map((option) => {
                 const selected = answers[question.id] === option;
                 const correct = submitted && option === question.answer;
-                const incorrect = submitted && selected && option !== question.answer;
+                const incorrect =
+                  submitted && selected && option !== question.answer;
                 return (
                   <button
                     key={option}
                     disabled={submitted}
                     className={`quiz-option ${selected ? "selected" : ""} ${correct ? "correct" : ""} ${incorrect ? "incorrect" : ""}`}
                     onClick={() =>
-                      setAnswers((current) => ({ ...current, [question.id]: option }))
+                      setAnswers((current) => ({
+                        ...current,
+                        [question.id]: option,
+                      }))
                     }
                   >
                     {correct && <CheckCircle2 size={17} />}
@@ -108,10 +122,14 @@ export default function QuizPage() {
       </div>
 
       <div className="sticky-submit">
-        <span>Đã trả lời {Object.keys(answers).length}/{questions.length}</span>
+        <span>
+          Đã trả lời {Object.keys(answers).length}/{questions.length}
+        </span>
         <button
           className="primary-button"
-          disabled={submitted || Object.keys(answers).length !== questions.length}
+          disabled={
+            submitted || Object.keys(answers).length !== questions.length
+          }
           onClick={submitQuiz}
         >
           Chấm điểm
