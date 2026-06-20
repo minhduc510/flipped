@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Award, ArrowRight } from 'lucide-react';
+import { Award, ArrowRight, X } from 'lucide-react';
 
-export default function VocabularyList({ vocabList = [], grammarList = [], selectedTerm = null, onScrollToTerm }) {
+export default function VocabularyList({ vocabList = [], grammarList = [], selectedTerm = null, onScrollToTerm, onClose }) {
   const [activeTab, setActiveTab] = useState('vocab'); // 'vocab' or 'grammar'
 
   // --- EFFECT: when user clicks a word in the READER → scroll this panel to that card ---
@@ -57,9 +57,15 @@ export default function VocabularyList({ vocabList = [], grammarList = [], selec
           <Award size={18} style={{ color: 'var(--accent-color)' }} />
           Góc Học Tập
         </span>
-        <span style={{ fontSize: '0.7rem', opacity: 0.6, marginTop: '2px' }}>
-          Click từ để tìm trong bài đọc
-        </span>
+        {onClose ? (
+          <button className="close-btn" onClick={onClose} aria-label="Đóng" style={{ padding: '2px' }}>
+            <X size={18} />
+          </button>
+        ) : (
+          <span style={{ fontSize: '0.7rem', opacity: 0.6, marginTop: '2px' }}>
+            Click từ để tìm trong bài đọc
+          </span>
+        )}
       </div>
 
       <nav className="tab-nav">

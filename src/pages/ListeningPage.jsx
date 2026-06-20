@@ -122,7 +122,7 @@ export default function ListeningPage() {
               onClick={() => selectParagraph(index)}
             >
               <span>{index + 1}</span>
-              {item.en.slice(0, 70)}…
+              <span className="paragraph-text-preview">{item.en.slice(0, 70)}…</span>
             </button>
           ))}
         </aside>

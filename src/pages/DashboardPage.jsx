@@ -2,7 +2,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { Award, BookOpenCheck, Brain, CalendarDays } from "lucide-react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import PageHeader from "../components/PageHeader";
 import chaptersData from "../data/chapters.json";
 import { db } from "../data/learningDb";
@@ -141,24 +141,26 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="chart-wrapper">
-            <BarChart width={720} height={360} data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.25} />
-              <XAxis dataKey="chapter" />
-              <YAxis domain={[0, 100]} />
-              <Tooltip />
-              <Bar
-                dataKey="quiz"
-                name="Quiz"
-                fill="#3b82f6"
-                radius={[5, 5, 0, 0]}
-              />
-              <Bar
-                dataKey="cloze"
-                name="Cloze"
-                fill="#f59e0b"
-                radius={[5, 5, 0, 0]}
-              />
-            </BarChart>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData} margin={{ left: -20, right: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" opacity={0.25} />
+                <XAxis dataKey="chapter" />
+                <YAxis domain={[0, 100]} />
+                <Tooltip />
+                <Bar
+                  dataKey="quiz"
+                  name="Quiz"
+                  fill="#3b82f6"
+                  radius={[5, 5, 0, 0]}
+                />
+                <Bar
+                  dataKey="cloze"
+                  name="Cloze"
+                  fill="#f59e0b"
+                  radius={[5, 5, 0, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </article>
 

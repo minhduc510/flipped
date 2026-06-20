@@ -59,6 +59,28 @@ export default function AppShell() {
       <main className="route-content">
         <Outlet />
       </main>
+
+      <nav className="global-bottom-nav" aria-label="Điều hướng di động">
+        {navigation.map(({ to, label, icon: Icon }) => {
+          // Shorten labels for mobile bottom navigation to fit screens
+          let shortLabel = label;
+          if (label === "Đọc truyện") shortLabel = "Đọc";
+          else if (label === "Ôn SRS") shortLabel = "Ôn SRS";
+          
+          return (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) =>
+                `global-bottom-nav-link ${isActive ? "active" : ""}`
+              }
+            >
+              <Icon size={18} />
+              <span>{shortLabel}</span>
+            </NavLink>
+          );
+        })}
+      </nav>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import {
   Layers,
   Palette,
   Type,
+  X,
 } from "lucide-react";
 
 export default function ControlPanel({
@@ -20,9 +21,24 @@ export default function ControlPanel({
   lineHeight,
   setLineHeight,
   onOpenSavedWords,
+  onClose,
 }) {
   return (
     <aside className="sidebar">
+      {onClose && (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '1rem 1.25rem',
+          borderBottom: '1px solid var(--border-color)',
+        }}>
+          <span style={{ fontWeight: 'bold', fontSize: '0.95rem' }}>Cài đặt đọc</span>
+          <button className="close-btn" onClick={onClose} aria-label="Đóng">
+            <X size={18} />
+          </button>
+        </div>
+      )}
       <div className="sidebar-scrollable">
         {/* Chapter Selection */}
         <div className="control-section">

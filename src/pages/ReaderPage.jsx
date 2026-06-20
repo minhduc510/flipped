@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { Award, Bookmark, Check, Sliders } from "lucide-react";
 import ControlPanel from "../components/ControlPanel";
 import Reader from "../components/Reader";
 import SavedWords from "../components/SavedWords";
 import VocabularyList from "../components/VocabularyList";
+import DictionaryPopup from "../components/DictionaryPopup";
 import chaptersData from "../data/chapters.json";
 import { markChapterCompleted, markChapterOpened } from "../data/learningDb";
 
@@ -29,6 +31,8 @@ export default function ReaderPage() {
     return saved ? JSON.parse(saved) : [];
   });
   const [isSavedOpen, setIsSavedOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isStudyPanelOpen, setIsStudyPanelOpen] = useState(false);
   const [selectedTerm, setSelectedTerm] = useState(null);
   const [scrollToTerm, setScrollToTerm] = useState(null);
 
@@ -92,6 +96,8 @@ export default function ReaderPage() {
         <meta property="og:image" content={`${import.meta.env.VITE_SITE_URL}/cover.jpg`} />
         <meta property="og:url" content={`${import.meta.env.VITE_SITE_URL}/read`} />
       </Helmet>
+
+      {/* Static ControlPanel for Desktop */}
       <ControlPanel
         chapters={chapters}
         currentChapterNum={currentChapterNum}
@@ -111,27 +117,111 @@ export default function ReaderPage() {
         onOpenSavedWords={() => setIsSavedOpen(true)}
       />
 
+      {/* ControlPanel Drawer for Mobile */}
+      {isSettingsOpen && (
+        <div className="mobile-drawer-overlay" onClick={() => setIsSettingsOpen(false)}>
+          <div className="mobile-drawer-content" onClick={(e) => e.stopPropagation()}>
+            <ControlPanel
+              chapters={chapters}
+              currentChapterNum={currentChapterNum}
+              onChapterChange={(chapterNum) => {
+                setCurrentChapterNum(chapterNum);
+                setSelectedTerm(null);
+                setScrollToTerm(null);
+                setIsSettingsOpen(false);
+              }}
+              readingMode={readingMode}
+              setReadingMode={setReadingMode}
+              theme={theme}
+              setTheme={setTheme}
+              fontSize={fontSize}
+              setFontSize={setFontSize}
+              lineHeight={lineHeight}
+              setLineHeight={setLineHeight}
+              onOpenSavedWords={() => {
+                setIsSavedOpen(true);
+                setIsSettingsOpen(false);
+              }}
+              onClose={() => setIsSettingsOpen(false)}
+            />
+          </div>
+        </div>
+      )}
+
       <main className="main-content">
         <header className="top-bar">
           <div className="chapter-title">
-            <h1>{currentChapter.title}</h1>
+            <h1>Chương {currentChapterNum}: {currentChapter.title}</h1>
           </div>
-          <div className="reading-progress-container">
-            <button
-              className="compact-action"
-              onClick={() => markChapterCompleted(currentChapterNum)}
-            >
-              Đánh dấu đã đọc
-            </button>
-            <span>Tiến trình: {progressPercent}%</span>
-            <div className="progress-track">
-              <div
-                className="progress-bar"
-                style={{ width: `${progressPercent}%` }}
-              />
+          
+          <div className="top-bar-actions">
+            {/* Mobile Header Quick Actions */}
+            <div className="mobile-header-buttons">
+              <button
+                className="icon-button"
+                onClick={() => setIsSettingsOpen(true)}
+                title="Cài đặt đọc"
+              >
+                <Sliders size={16} />
+              </button>
+              <button
+                className="icon-button"
+                onClick={() => setIsStudyPanelOpen(true)}
+                title="Góc học tập"
+              >
+                <Award size={16} />
+              </button>
+              <button
+                className="icon-button"
+                onClick={() => setIsSavedOpen(true)}
+                title="Sổ tay từ vựng"
+              >
+                <Bookmark size={16} />
+              </button>
+              <button
+                className="icon-button"
+                onClick={() => markChapterCompleted(currentChapterNum)}
+                title="Đánh dấu đã đọc"
+              >
+                <Check size={16} />
+              </button>
+            </div>
+
+            {/* Desktop progress indicator */}
+            <div className="reading-progress-container">
+              <button
+                className="compact-action"
+                onClick={() => markChapterCompleted(currentChapterNum)}
+              >
+                Đánh dấu đã đọc
+              </button>
+              <span>Tiến trình: {progressPercent}%</span>
+              <div className="progress-track">
+                <div
+                  className="progress-bar"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
             </div>
           </div>
         </header>
+
+        {/* Thin scroll/progress indicator under the header */}
+        <div style={{
+          height: '2px',
+          width: '100%',
+          background: 'var(--border-color)',
+          position: 'relative',
+          zIndex: 10
+        }}>
+          <div style={{
+            height: '100%',
+            width: `${progressPercent}%`,
+            background: 'var(--accent-color)',
+            transition: 'width 0.3s ease'
+          }} />
+        </div>
+
         <div className="reader-workspace">
           <Reader
             paragraphs={currentChapter.paragraphs}
@@ -146,6 +236,7 @@ export default function ReaderPage() {
         </div>
       </main>
 
+      {/* Static VocabularyList for Desktop */}
       <VocabularyList
         vocabList={currentChapter.vocabulary || []}
         grammarList={currentChapter.grammar || []}
@@ -153,6 +244,25 @@ export default function ReaderPage() {
         onScrollToTerm={setScrollToTerm}
       />
 
+      {/* VocabularyList Drawer for Mobile */}
+      {isStudyPanelOpen && (
+        <div className="mobile-drawer-overlay right" onClick={() => setIsStudyPanelOpen(false)}>
+          <div className="mobile-drawer-content" onClick={(e) => e.stopPropagation()}>
+            <VocabularyList
+              vocabList={currentChapter.vocabulary || []}
+              grammarList={currentChapter.grammar || []}
+              selectedTerm={selectedTerm}
+              onScrollToTerm={(term) => {
+                setScrollToTerm(term);
+                setIsStudyPanelOpen(false);
+              }}
+              onClose={() => setIsStudyPanelOpen(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Saved Words Modal Drawer (All viewports) */}
       <SavedWords
         isOpen={isSavedOpen}
         onClose={() => setIsSavedOpen(false)}
@@ -165,6 +275,16 @@ export default function ReaderPage() {
           )
         }
         onAddWord={handleSaveWord}
+      />
+
+      {/* Dictionary Popup/Bottom Sheet for tapped terms */}
+      <DictionaryPopup
+        selectedTerm={selectedTerm}
+        onClose={() => setSelectedTerm(null)}
+        vocabulary={currentChapter.vocabulary || []}
+        grammar={currentChapter.grammar || []}
+        onSaveWord={handleSaveWord}
+        savedWords={savedWords}
       />
     </div>
   );
