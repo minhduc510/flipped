@@ -88,13 +88,22 @@ export default function ReaderPage() {
           name="description"
           content={`Đọc truyện Flipped song ngữ Anh - Việt. Chương ${currentChapterNum}: ${currentChapter.title}. Học từ vựng, ngữ pháp thực tế cho TOEIC 550.`}
         />
-        <meta property="og:title" content={`Chương ${currentChapterNum}: ${currentChapter.title} | Flipped Song Ngữ`} />
+        <meta
+          property="og:title"
+          content={`Chương ${currentChapterNum}: ${currentChapter.title} | Flipped Song Ngữ`}
+        />
         <meta
           property="og:description"
           content={`Đọc truyện Flipped song ngữ Anh - Việt. Chương ${currentChapterNum}: ${currentChapter.title}. Học từ vựng, ngữ pháp thực tế cho TOEIC 550.`}
         />
-        <meta property="og:image" content={`${import.meta.env.VITE_SITE_URL}/cover.jpg`} />
-        <meta property="og:url" content={`${import.meta.env.VITE_SITE_URL}/read`} />
+        <meta
+          property="og:image"
+          content={`${import.meta.env.VITE_SITE_URL}/cover.jpg`}
+        />
+        <meta
+          property="og:url"
+          content={`${import.meta.env.VITE_SITE_URL}/read`}
+        />
       </Helmet>
 
       {/* Static ControlPanel for Desktop */}
@@ -119,8 +128,14 @@ export default function ReaderPage() {
 
       {/* ControlPanel Drawer for Mobile */}
       {isSettingsOpen && (
-        <div className="mobile-drawer-overlay" onClick={() => setIsSettingsOpen(false)}>
-          <div className="mobile-drawer-content" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="mobile-drawer-overlay"
+          onClick={() => setIsSettingsOpen(false)}
+        >
+          <div
+            className="mobile-drawer-content"
+            onClick={(e) => e.stopPropagation()}
+          >
             <ControlPanel
               chapters={chapters}
               currentChapterNum={currentChapterNum}
@@ -151,9 +166,11 @@ export default function ReaderPage() {
       <main className="main-content">
         <header className="top-bar">
           <div className="chapter-title">
-            <h1>Chương {currentChapterNum}: {currentChapter.title}</h1>
+            <h1>
+              Chương {currentChapterNum}: {currentChapter.title}
+            </h1>
           </div>
-          
+
           <div className="top-bar-actions">
             {/* Mobile Header Quick Actions */}
             <div className="mobile-header-buttons">
@@ -207,19 +224,23 @@ export default function ReaderPage() {
         </header>
 
         {/* Thin scroll/progress indicator under the header */}
-        <div style={{
-          height: '2px',
-          width: '100%',
-          background: 'var(--border-color)',
-          position: 'relative',
-          zIndex: 10
-        }}>
-          <div style={{
-            height: '100%',
-            width: `${progressPercent}%`,
-            background: 'var(--accent-color)',
-            transition: 'width 0.3s ease'
-          }} />
+        <div
+          style={{
+            height: "2px",
+            width: "100%",
+            background: "var(--border-color)",
+            position: "relative",
+            zIndex: 10,
+          }}
+        >
+          <div
+            style={{
+              height: "100%",
+              width: `${progressPercent}%`,
+              background: "var(--accent-color)",
+              transition: "width 0.3s ease",
+            }}
+          />
         </div>
 
         <div className="reader-workspace">
@@ -246,8 +267,14 @@ export default function ReaderPage() {
 
       {/* VocabularyList Drawer for Mobile */}
       {isStudyPanelOpen && (
-        <div className="mobile-drawer-overlay right" onClick={() => setIsStudyPanelOpen(false)}>
-          <div className="mobile-drawer-content" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="mobile-drawer-overlay right"
+          onClick={() => setIsStudyPanelOpen(false)}
+        >
+          <div
+            className="mobile-drawer-content"
+            onClick={(e) => e.stopPropagation()}
+          >
             <VocabularyList
               vocabList={currentChapter.vocabulary || []}
               grammarList={currentChapter.grammar || []}

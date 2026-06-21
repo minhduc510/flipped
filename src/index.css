@@ -1,12 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
 /* --- Reset & Base --- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  font-family: "Roboto", sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 :root {
@@ -22,8 +25,10 @@
   --accent-light: rgba(59, 130, 246, 0.1);
   --accent-hover: #2563eb;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --sidebar-width: 280px;
 }
 
@@ -247,10 +252,24 @@ body {
   text-transform: capitalize;
 }
 
-.theme-btn-light { background: #f8fafc; color: #1e293b; }
-.theme-btn-dark { background: #0f172a; color: #f1f5f9; }
-.theme-btn-sepia { background: #fdf6e3; color: #586e75; border-color: #eee8d5; }
-.theme-btn-forest { background: #162421; color: #e6edea; border-color: #203530; }
+.theme-btn-light {
+  background: #f8fafc;
+  color: #1e293b;
+}
+.theme-btn-dark {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+.theme-btn-sepia {
+  background: #fdf6e3;
+  color: #586e75;
+  border-color: #eee8d5;
+}
+.theme-btn-forest {
+  background: #162421;
+  color: #e6edea;
+  border-color: #203530;
+}
 
 .theme-btn.active {
   border-width: 2px;
@@ -516,8 +535,14 @@ body {
 }
 
 @keyframes popupFadeIn {
-  from { opacity: 0; transform: scale(0.95) translateY(5px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .dict-header {
@@ -745,8 +770,12 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .saved-drawer {
@@ -760,8 +789,12 @@ body {
 }
 
 @keyframes slideIn {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .saved-header {
@@ -866,25 +899,37 @@ body {
 }
 
 @keyframes slideInLeft {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes slideInRight {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 900px) {
   .app-container {
     flex-direction: column;
   }
-  
+
   /* Hide the static sidebar and study panel when rendered inline in ReaderPage */
   .reader-page > .sidebar,
   .reader-page > .study-panel {
@@ -915,17 +960,17 @@ body {
     flex: 1;
     overflow-y: auto;
   }
-  
+
   .parallel-layout {
     padding: 1.5rem 1rem;
   }
-  
+
   .paragraph-row {
     grid-template-columns: 1fr;
     gap: 0.75rem;
     padding: 1rem 0.5rem;
   }
-  
+
   .paragraph-row::after {
     display: none;
   }
@@ -940,15 +985,15 @@ body {
     border-top: 1px dashed var(--border-color);
     padding-top: 0.5rem;
   }
-  
+
   .column-divider {
     display: none;
   }
-  
+
   .scroll-column {
     padding: 1.5rem 1rem;
   }
-  
+
   .saved-drawer {
     width: 100%;
   }
@@ -956,9 +1001,18 @@ body {
 
 /* --- Study Card Flash Highlight (vocab panel → scroll here) --- */
 @keyframes cardFlash {
-  0%   { background-color: var(--accent-light); box-shadow: 0 0 0 2px var(--accent-color); }
-  50%  { background-color: var(--accent-light); box-shadow: 0 0 0 4px var(--accent-color); }
-  100% { background-color: var(--bg-primary);   box-shadow: none; }
+  0% {
+    background-color: var(--accent-light);
+    box-shadow: 0 0 0 2px var(--accent-color);
+  }
+  50% {
+    background-color: var(--accent-light);
+    box-shadow: 0 0 0 4px var(--accent-color);
+  }
+  100% {
+    background-color: var(--bg-primary);
+    box-shadow: none;
+  }
 }
 
 .vocab-card.flash-card,
@@ -970,18 +1024,21 @@ body {
 .vocab-card-clickable,
 .grammar-card-clickable {
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .vocab-card-clickable:hover {
   transform: translateX(-2px);
-  box-shadow: 2px 2px 12px rgba(0,0,0,0.12);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.12);
   border-color: var(--accent-color);
 }
 
 .grammar-card-clickable:hover {
   transform: translateX(-2px);
-  box-shadow: 2px 2px 12px rgba(0,0,0,0.12);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.12);
   border-color: var(--accent-color);
 }
 
@@ -1008,9 +1065,22 @@ body {
 
 /* --- Reader Word Flash (when scrolling to word from vocab panel) --- */
 @keyframes readerWordFlash {
-  0%   { background: var(--vocab-highlight-bg); outline: 2px solid var(--vocab-highlight); border-radius: 3px; }
-  40%  { background: var(--vocab-highlight);    outline: 2px solid var(--vocab-highlight); border-radius: 3px; color: #fff; }
-  100% { background: var(--vocab-highlight-bg); outline: none; border-radius: 3px; }
+  0% {
+    background: var(--vocab-highlight-bg);
+    outline: 2px solid var(--vocab-highlight);
+    border-radius: 3px;
+  }
+  40% {
+    background: var(--vocab-highlight);
+    outline: 2px solid var(--vocab-highlight);
+    border-radius: 3px;
+    color: #fff;
+  }
+  100% {
+    background: var(--vocab-highlight-bg);
+    outline: none;
+    border-radius: 3px;
+  }
 }
 
 .highlighted-term.flash-reader-word {
@@ -1101,7 +1171,11 @@ body {
   overflow-y: auto;
   padding: 2rem clamp(1rem, 4vw, 3.5rem) 5rem;
   background:
-    radial-gradient(circle at top right, var(--accent-light), transparent 28rem),
+    radial-gradient(
+      circle at top right,
+      var(--accent-light),
+      transparent 28rem
+    ),
     var(--bg-primary);
 }
 
@@ -1367,10 +1441,18 @@ body {
   margin-top: 0.2rem;
 }
 
-.rating-button.danger strong { color: #dc2626; }
-.rating-button.warning strong { color: #d97706; }
-.rating-button.success strong { color: #059669; }
-.rating-button.primary strong { color: var(--accent-color); }
+.rating-button.danger strong {
+  color: #dc2626;
+}
+.rating-button.warning strong {
+  color: #d97706;
+}
+.rating-button.success strong {
+  color: #059669;
+}
+.rating-button.primary strong {
+  color: var(--accent-color);
+}
 
 .empty-state {
   background: var(--bg-card);
@@ -1778,6 +1860,12 @@ body {
   animation: fadeIn 0.15s ease-out;
 }
 
+@media (min-width: 761px) {
+  .dict-popup-overlay {
+    display: none !important;
+  }
+}
+
 @media (max-width: 760px) {
   body {
     overflow: auto;
@@ -1797,7 +1885,7 @@ body {
     align-items: center;
     justify-content: space-around;
   }
-  
+
   .global-bottom-nav-link {
     display: flex;
     flex-direction: column;
@@ -1810,13 +1898,15 @@ body {
     font-weight: 600;
     gap: 3px;
     height: 100%;
-    transition: color 0.2s, background-color 0.2s;
+    transition:
+      color 0.2s,
+      background-color 0.2s;
   }
-  
+
   .global-bottom-nav-link.active {
     color: var(--accent-color);
   }
-  
+
   .global-bottom-nav-link svg {
     stroke-width: 2.2;
   }
@@ -1840,11 +1930,11 @@ body {
     display: flex !important;
     min-width: auto !important;
   }
-  
+
   .global-brand strong {
     font-size: 0.95rem;
   }
-  
+
   .global-brand small {
     display: none;
   }
@@ -1970,7 +2060,7 @@ body {
     align-items: center;
     gap: 0.4rem;
   }
-  
+
   .reading-progress-container {
     display: none !important;
   }
@@ -1978,7 +2068,7 @@ body {
   .top-bar {
     padding: 0 0.5rem !important;
   }
-  
+
   .chapter-title h1 {
     font-size: 0.9rem !important;
     max-width: 140px;
@@ -1987,4 +2077,3 @@ body {
     text-overflow: ellipsis;
   }
 }
-
